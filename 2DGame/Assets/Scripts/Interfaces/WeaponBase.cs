@@ -50,10 +50,11 @@ public class WeaponBase : MonoBehaviour, IWeapon {
             for (int i = 0; i < objToDamage.Length; i++)
             {
                 objToDamage[i].GetComponent<Destruction>().health -= _damage;
-            }
-
+            }  
+        }else if(other.tag != ("Player"))
+        {
             Destroy(gameObject);
-        }
+        }   
     }
 
     private void OnDrawGizmosSelected()

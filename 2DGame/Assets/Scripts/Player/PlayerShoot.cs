@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour {
-    [SerializeField]
+    
     private GameObject _FirePoint;
-    private InputManager _PlayerInput;
+    [SerializeField]
+    private GameObject _Bomb;
     private GameObject _Weapon;
+    private InputManager _PlayerInput;
     private WeaponSelect _Weapons;
 
     void Start()
@@ -20,7 +22,16 @@ public class PlayerShoot : MonoBehaviour {
         if (_PlayerInput.Shoot())
         {
             _Weapon = _Weapons.CurrentWeapon;
-            Instantiate(_Weapon, _FirePoint.transform.position, _FirePoint.transform.rotation);
+            Instantiate(_Weapon.GetComponent<SetBullet>().bullet, _FirePoint.transform.position, _FirePoint.transform.rotation);
         }
+        if (_PlayerInput.Bomb())
+        {
+            Instantiate(_Bomb, _FirePoint.transform.position, _FirePoint.transform.rotation);
+        }
+    }
+
+    public void SetFirePoint(GameObject FirePoint)
+    {
+        _FirePoint = FirePoint;
     }
 }
