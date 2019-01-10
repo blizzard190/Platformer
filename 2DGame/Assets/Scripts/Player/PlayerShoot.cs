@@ -26,7 +26,7 @@ public class PlayerShoot : MonoBehaviour {
         }
         if (_PlayerInput.Bomb())
         {
-            Instantiate(_Bomb, _FirePoint.transform.position, _FirePoint.transform.rotation);
+            Instantiate(_Bomb, _FirePoint.transform.position + new Vector3(1,0,0), _FirePoint.transform.rotation);
         }
     }
 

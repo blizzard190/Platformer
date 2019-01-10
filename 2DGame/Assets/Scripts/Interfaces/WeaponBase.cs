@@ -9,6 +9,7 @@ public class WeaponBase : MonoBehaviour, IWeapon {
     public LayerMask des;
     public float timer;
     public float speed;
+    public int damage;
 
     public virtual float _AOE
     {
@@ -22,7 +23,7 @@ public class WeaponBase : MonoBehaviour, IWeapon {
     {
         get
         {
-            return 1;
+            return damage;
         }
     }
 
@@ -44,17 +45,16 @@ public class WeaponBase : MonoBehaviour, IWeapon {
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Envirment")|| other.CompareTag("Enemy")|| other.CompareTag("Destructable"))
+        if (other.CompareTag("Envirment") || other.CompareTag("Enemy") || other.CompareTag("Destructable"))
         {
             Collider2D[] objToDamage = Physics2D.OverlapCircleAll(transform.position, AOE, _destructible);
             for (int i = 0; i < objToDamage.Length; i++)
             {
                 objToDamage[i].GetComponent<Destruction>().health -= _damage;
-            }  
-        }else if(other.tag != ("Player"))
-        {
+                Debug.Log(objToDamage[i].GetComponent<Destruction>().health);
+            }
             Destroy(gameObject);
-        }   
+        }
     }
 
     private void OnDrawGizmosSelected()
